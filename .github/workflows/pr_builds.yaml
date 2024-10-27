@@ -36,14 +36,13 @@ jobs:
       - name: Setup environment
         uses: ./.github/actions/init-gradle
       - name: Build Macos binaries
-        run: ./gradlew :service:macosX64Binaries :service:macosArm64Binaries
+        run: ./gradlew :service:macosX64Binaries
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
           name: service.jar
           path: |
-            service/build/bin/macosArm64/releaseExecutable/service.kexe
-            service/build/bin/macosX64/releaseExecutable/service.kexe
+            service/build/bin/macosX64/releaseExecutable/service-macosX64.kexe
 
   build-linux:
     runs-on: ubuntu-latest
@@ -59,4 +58,4 @@ jobs:
         with:
           name: service.jar
           path: |
-            service/build/bin/linuxX64/releaseExecutable/service.kexe
+            service/build/bin/linuxX64/releaseExecutable/service-linuxX64.kexe
