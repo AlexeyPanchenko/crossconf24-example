@@ -2,8 +2,9 @@
 kotlin = "2.0.20"
 ktor = "3.0.0"
 serialization = "1.7.3"
-
 datetime = "0.6.1"
+shadowjar = "8.1.1"
+arrow = "1.2.4"
 
 [libraries]
 kotlinx-datetime = { group = "org.jetbrains.kotlinx", name = "kotlinx-datetime", version.ref = "datetime" }
@@ -19,12 +20,9 @@ ktor-server-cio = { group = "io.ktor", name = "ktor-server-cio", version.ref = "
 ktor-server-negotiation = { group = "io.ktor", name = "ktor-server-content-negotiation", version.ref = "ktor" }
 ktor-serialization-json = { group = "io.ktor", name = "ktor-serialization-kotlinx-json", version.ref = "ktor" }
 
-
-[bundles]
-kotlin-serialization = ["kotlin-serialization", "kotlin-serialization-json"]
-
-ktor-server = ["ktor-server-core", "ktor-server-jvm", "ktor-server-netty", "ktor-server-negotiation"]
+arrow = { group = "io.arrow-kt", name = "arrow-core", version.ref = "arrow" }
 
 [plugins]
 kotlin-multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
+shadowjar = { id = "com.github.johnrengelman.shadow", version.ref = "shadowjar" }
