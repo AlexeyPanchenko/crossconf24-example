@@ -1,0 +1,66 @@
+name: PR Builds
+
+on:
+  pull_request:
+    branches: [ "main" ]
+    paths-ignore:
+      - '**.md'
+      - '**.sh'
+  push:
+    branches: [ "main" ]
+    paths-ignore:
+      - '**.md'
+      - '**.sh'
+
+env:
+  gradleFlags: --parallel --stacktrace --no-configuration-cache --no-daemon
+
+jobs:
+
+  build-jvm:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup environment
+        uses: ./.github/actions/init-gradle
+      - name: Build Jar
+        run: ./gradlew :service:jvmBinary
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: service.jar
+          path: |
+            service/build/libs/service.jar
+
+  build-macos:
+    runs-on: macos-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup environment
+        uses: ./.github/actions/init-gradle
+      - name: Build Macos binaries
+        run: ./gradlew :service:macosX64Binaries
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: service-macosX64.kexe
+          path: |
+            service/build/bin/macosX64/releaseExecutable/service.kexe
+
+  build-linux:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup environment
+        uses: ./.github/actions/init-gradle
+      - name: Build Macos binaries
+        run: ./gradlew :service:linuxX64Binaries
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: service-linuxX64.kexe
+          path: |
+            service/build/bin/linuxX64/releaseExecutable/service.kexe
