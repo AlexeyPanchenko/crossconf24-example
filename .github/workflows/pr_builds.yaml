@@ -6,6 +6,11 @@ on:
     paths-ignore:
       - '**.md'
       - '**.sh'
+  push:
+    branches: [ "main" ]
+    paths-ignore:
+      - '**.md'
+      - '**.sh'
 
 env:
   gradleFlags: --parallel --stacktrace --no-configuration-cache --no-daemon
